@@ -67,8 +67,57 @@ $faqs = [
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  
+  <header>
+    <div class="container-fluid header-container d-flex justify-content-start align-items-end ">
+      <ul class="d-flex flex-row">
+        <li> <a href="">Introduzione</a> </li>
+        <li> <a href="">Norme sulla privacy</a> </li>
+        <li> <a href="">Termini di servizio</a> </li>
+        <li> <a href="">Tecnologie</a> </li>
+        <li class="active">Domande frequenti</li>
+      </ul>
+    </div>
+  </header>
+	<main class="container">
+		<?php
+		foreach ($faqs as $faq) {
+			echo '<h2>' . $faq["question"] . '</h2>';
+			foreach ($faq["answers"] as $answer) {
+				if (is_array($answer)) {
+					echo '<ol class="answers">';
+					foreach ($answer as $first_answer) {
+						echo '<li>';
+						if (is_array($first_answer)) {
+							foreach ($first_answer as $numbered_list) {
+								if (is_array($numbered_list)) {
+									echo '<ol type="a">';
+									foreach ($numbered_list as $case_list) {
+										echo '<li>' . $case_list . '</li>';
+									}
+									echo '</ol>';
+								} else {
+									echo $numbered_list;
+								}
+							}
+						} else {
+							echo $first_answer;
+						}
+						echo '</li>';
+					}
+					echo '</ol>';
+				} else {
+					echo '<p>' . $answer . '</p>';
+				}
+			}
+			echo '</ul>' . '</li>';
+		}
+		echo '</ul>';
+		?>
+	</main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </body>
 </html>
